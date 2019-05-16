@@ -7,7 +7,9 @@ let Mobile = function (name) {
     this.status = true;
     this.message = "";
 
-
+    this.getName = function () {
+        return this.name;
+    };
     // Kiem tra trang thai dien thoai dang bat hay tat
     this.checkStatus = function () {
         if (this.status) {
@@ -29,10 +31,11 @@ let Mobile = function (name) {
             this.battery++;
         }
     };
-    this.useBattery = function () {
-        if (this.battery > 0){
-            this.battery--;
-            console.log(this.battery);
+    this.useBattery = function (phone) {
+
+        if (phone.battery > 0){
+            phone.battery--;
+            console.log( phone.getName()+"is" +phone.battery);
         }
     }
     //Ham viet tin nhan - nhan tham so tu ngoai: Msg
@@ -42,7 +45,7 @@ let Mobile = function (name) {
         } else {
             console.log("May dang tat");
         }
-        this.useBattery();
+        // this.useBattery(phone);
     };
     //gui tin nhan den phone va them vao tin nhan vao outbox dien thoai gui
     this.sendMessage = function (phone) {
@@ -52,24 +55,24 @@ let Mobile = function (name) {
         } else {
             console.log("May dang tat");
         }
-        this.useBattery();
+        this.useBattery(phone);
     };
-    this.readInbox = function () {
+    this.readInbox = function (phone) {
         if (this.status) {
             return this.inbox;
         } else {
             console.log("May dang tat");
         }
-        this.useBattery();
+        this.useBattery(phone);
     };
 
-    this.readOutbox = function () {
+    this.readOutbox = function (phone) {
         if (this.status) {
             return this.outbox;
         } else {
         console.log("May dang tat");
         }
-        this.useBattery();
+        this.useBattery(phone);
     };
 }
 
@@ -81,5 +84,9 @@ nokia.TurnOn();
 iphone.TurnOn();
 nokia.writeMessage("hello iphone. i send message");
 nokia.sendMessage(iphone);
-console.log("inbox iphone: " + iphone.readInbox());
-console.log("outbox nokia: " + nokia.readOutbox());
+nokia.writeMessage("fdsfdsfdsfds");
+nokia.sendMessage(iphone);
+iphone.writeMessage("hello iphone. i send message");
+iphone.sendMessage(nokia);
+console.log("inbox iphone: " + iphone.readInbox(iphone));
+console.log("outbox nokia: " + nokia.readOutbox(nokia));
